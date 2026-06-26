@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h2>Resume Analysis History</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Resume</th>
+            <th>Score</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+
+        {% for row in history %}
+        <tr>
+
+            <td>{{ row[0] }}</td>   <!-- id -->
+            <td>{{ row[2] }}</td>   <!-- file_name -->
+            <td>{{ row[3] }}</td>   <!-- score -->
+            <td>{{ row[4] }}</td>   <!-- role -->
+
+            <td>
+                <a href="/delete_resume/{{ row[0] }}"
+                   onclick="return confirm('Are you sure you want to delete this resume?');">
+                   Delete
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="/dashboard">
+        <button>Back</button>
+    </a>
+
+</div>
+
+</body>
+</html>

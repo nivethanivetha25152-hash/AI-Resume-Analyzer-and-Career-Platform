@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Resume</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Analyze Resume</h2>
+
+    <form action="/analyze" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+
+        <br><br>
+
+        <button type="submit">Upload & Analyze</button>
+
+    </form>
+
+    {% if score %}
+
+    <hr>
+
+    <h3>Analysis Result</h3>
+
+    <p><b>ATS Score :</b> {{ score }}/100</p>
+
+    <p><b>Recommended Role :</b> {{ role }}</p>
+
+    <p><b>Skills :</b></p>
+
+    {% if skills %}
+    <ul>
+        {% for skill in skills %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No Skills Detected</p>
+    {% endif %}
+
+    <p><b>Suggestions :</b></p>
+
+    {% if suggestions %}
+    <ul>
+        {% for s in suggestions %}
+        <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p style="color:green;"><b>✓ No Suggestions Available. Your resume looks good!</b></p>
+    {% endif %}
+
+    <br>
+
+    {% if resume_id %}
+    <a href="/download/{{ resume_id }}">
+        <button type="button">Download Report</button>
+    </a>
+    {% endif %}
+
+    {% endif %}
+
+    <br><br>
+
+    <a href="/dashboard">
+        <button type="button">Back to Dashboard</button>
+    </a>
+
+</div>
+
+</body>
+</html>

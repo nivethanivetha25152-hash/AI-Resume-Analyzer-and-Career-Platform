@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Analyzer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h2>Welcome, {{ name }}</h2>
+
+    <h1>Resume Analyzer Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Analyses</h3>
+            <h1>{{ total }}</h1>
+        </div>
+
+        <div class="card">
+            <h3>Average Score</h3>
+            <h1>{{ average }}</h1>
+        </div>
+
+        <div class="card">
+            <h3>Latest Role</h3>
+            <h2>{{ role }}</h2>
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <a href="/analyze">
+            <button>Analyze Resume</button>
+        </a>
+
+        <a href="/history">
+            <button>View History</button>
+        </a>
+
+        <a href="/admin_login">
+            <button>Admin Panel</button>
+        </a>
+
+        <a href="/logout">
+            <button class="logout">Logout</button>
+        </a>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<div style="width:350px; margin:auto;">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Excellent (80+)', 'Good (60-79)', 'Needs Improvement (<60)'],
+        datasets: [{
+            data: [{{ total }}, 2, 1],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
